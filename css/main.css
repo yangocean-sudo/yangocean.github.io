@@ -180,7 +180,7 @@ body {
 }
 body {
   background: var(--body-bg-color);
-  color: var(--text-color);
+  color: ffffff;
   font-family: Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-size: 1em;
   line-height: 2;
@@ -2611,7 +2611,7 @@ ul.breadcrumb li:last-child {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #4fc679;
+  background: #b4c182;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2632,7 +2632,7 @@ ul.breadcrumb li:last-child {
   white-space: nowrap;
 }
 body {
-  background: url("/images/background.jpg");
+  background: url("/images/background.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
