@@ -180,7 +180,7 @@ body {
 }
 body {
   background: var(--body-bg-color);
-  color: #fff;
+  color: var(--text-color);
   font-family: Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-size: 1em;
   line-height: 2;
@@ -2611,7 +2611,7 @@ ul.breadcrumb li:last-child {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #ff7c6e;
+  background: #0a01e5;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2649,4 +2649,11 @@ body {
 }
 .popup {
   opacity: 1;
+}
+.main-inner {
+  margin-top: 60px;
+  padding: 60px 60px 60px 60px;
+  background: #fff;
+  opacity: 0.8;
+  min-height: 500px;
 }
