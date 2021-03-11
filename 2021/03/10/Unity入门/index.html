@@ -23,17 +23,17 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
-<meta name="description" content="Unity入门第一天： 熟悉界面与物体移动 这是我学习Unity的第一天，是跟着Siki学院的坦克大战教程总结了一些经验  关于界面 project 涉及了所有开发者所需要的美术模型（场景，道具，主体）， 制作好的动画可以打包放入一个命名为Animation文件夹里，动画控制器也可以放入一个命名为Animation Controller的文件夹里，场景角色的脚本设计可以放入Scripts里，Hie">
+<meta name="description" content="这是我学习Unity的第一天，是跟着Siki学院的坦克大战教程总结了一些经验  关于界面 project 涉及了所有开发者所需要的美术模型（场景，道具，主体）， 制作好的动画可以打包放入一个命名为Animation文件夹里，动画控制器也可以放入一个命名为Animation Controller的文件夹里，场景角色的脚本设计可以放入Scripts里，Hierarchy中的场景可以放入Map文件夹里">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Unity入门第一天： 熟悉界面与物体移动">
 <meta property="og:url" content="http://example.com/2021/03/10/Unity%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="YangOcean">
-<meta property="og:description" content="Unity入门第一天： 熟悉界面与物体移动 这是我学习Unity的第一天，是跟着Siki学院的坦克大战教程总结了一些经验  关于界面 project 涉及了所有开发者所需要的美术模型（场景，道具，主体）， 制作好的动画可以打包放入一个命名为Animation文件夹里，动画控制器也可以放入一个命名为Animation Controller的文件夹里，场景角色的脚本设计可以放入Scripts里，Hie">
+<meta property="og:description" content="这是我学习Unity的第一天，是跟着Siki学院的坦克大战教程总结了一些经验  关于界面 project 涉及了所有开发者所需要的美术模型（场景，道具，主体）， 制作好的动画可以打包放入一个命名为Animation文件夹里，动画控制器也可以放入一个命名为Animation Controller的文件夹里，场景角色的脚本设计可以放入Scripts里，Hierarchy中的场景可以放入Map文件夹里">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/Project_and_Hierarchy.png">
 <meta property="og:image" content="http://example.com/images/scene.png">
 <meta property="article:published_time" content="2021-03-10T23:18:01.000Z">
-<meta property="article:modified_time" content="2021-03-11T00:28:28.187Z">
+<meta property="article:modified_time" content="2021-03-11T00:38:05.995Z">
 <meta property="article:author" content="Yangyang Cui">
 <meta property="article:tag" content="Unity">
 <meta name="twitter:card" content="summary">
@@ -152,7 +152,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%B8%80%E5%A4%A9%EF%BC%9A-%E7%86%9F%E6%82%89%E7%95%8C%E9%9D%A2%E4%B8%8E%E7%89%A9%E4%BD%93%E7%A7%BB%E5%8A%A8"><span class="nav-number">1.</span> <span class="nav-text">Unity入门第一天： 熟悉界面与物体移动</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%95%8C%E9%9D%A2"><span class="nav-number">1.1.</span> <span class="nav-text">关于界面</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%92%E8%89%B2%E7%A7%BB%E5%8A%A8%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">角色移动代码解析</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%95%8C%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text">关于界面</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%92%E8%89%B2%E7%A7%BB%E5%8A%A8%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="nav-number"></span> <span class="nav-text">角色移动代码解析</span></a></div>
         </div>
         <!--/noindex-->
 
@@ -240,7 +240,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-03-11 00:28:28" itemprop="dateModified" datetime="2021-03-11T00:28:28+00:00">2021-03-11</time>
+        <time title="Modified: 2021-03-11 00:38:05" itemprop="dateModified" datetime="2021-03-11T00:38:05+00:00">2021-03-11</time>
       </span>
 
   
@@ -253,7 +253,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="Unity入门第一天：-熟悉界面与物体移动"><a href="#Unity入门第一天：-熟悉界面与物体移动" class="headerlink" title="Unity入门第一天： 熟悉界面与物体移动"></a>Unity入门第一天： 熟悉界面与物体移动</h1><blockquote>
+        <blockquote>
 <p>这是我学习Unity的第一天，是跟着Siki学院的坦克大战教程总结了一些经验</p>
 </blockquote>
 <h2 id="关于界面"><a href="#关于界面" class="headerlink" title="关于界面"></a>关于界面</h2><ul>
