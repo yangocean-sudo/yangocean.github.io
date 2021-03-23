@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://example.com/images/xuanran.png">
 <meta property="og:image" content="http://example.com/images/Layers.png">
 <meta property="article:published_time" content="2021-03-13T23:50:23.000Z">
-<meta property="article:modified_time" content="2021-03-14T00:31:37.478Z">
+<meta property="article:modified_time" content="2021-03-23T23:03:52.919Z">
 <meta property="article:author" content="Yangyang Cui">
 <meta property="article:tag" content="Unity">
 <meta name="twitter:card" content="summary">
@@ -241,7 +241,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-03-14 00:31:37" itemprop="dateModified" datetime="2021-03-14T00:31:37+00:00">2021-03-14</time>
+        <time title="Modified: 2021-03-23 23:03:52" itemprop="dateModified" datetime="2021-03-23T23:03:52+00:00">2021-03-23</time>
       </span>
 
   
@@ -258,6 +258,7 @@
 <p>因为坦克大战是一款平面游戏，切记要倒入2D文件，如<code>Box Collider 2D</code>, <code>Rigidbody 2D</code>。</p>
 <p><code>Rigidbody</code>组件可以让一个物体受到物理影响。比如添加<code>Rigidbody</code>组建后，物体会立马对重力作出反应。如果物体上还添加了<code>Collider</code>，物体在受到碰撞时也会移动。之所以在坦克身上添加刚体是因为玩家会一直操控坦克，所以刚体便不会休眠，而一直保持活跃状态。</p>
 <p>然而测试时我们发现坦克在我们没有控制的情况下会一直向下坠落，原因是初始设定中设置了重力的参数，将<code>Gravity Scale</code>设置为零就好了。</p>
+<a id="more"></a>
 <hr>
 <h2 id="限制物体移动"><a href="#限制物体移动" class="headerlink" title="限制物体移动"></a>限制物体移动</h2><ul>
 <li>在第一天的学习中我们实现了坦克的移动，但在实际测试中我们发现坦克会因为碰撞到地形的边缘而使方向变得扭曲，并不是理想中的纯上下左右式。解决方法为点击<code>Rigidbody 2D</code> —&gt; <code>constraints</code>（限制条件) -&gt; <code>Freeze Rotation</code>将Z轴锁住。<br><img src="/images/Constraints.png"></li>
