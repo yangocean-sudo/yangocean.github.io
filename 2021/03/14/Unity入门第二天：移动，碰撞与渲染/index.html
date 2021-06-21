@@ -23,24 +23,25 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
-<meta name="description" content="这是我学习Unity的第一天，是跟着Siki学院的坦克大战教程总结了一些经验">
+<meta name="description" content="添加碰撞体积为了实现坦克大战中地图设计，我们要在地形（墙，河流）上添加碰撞体积(Box Collider)，并要在坦克上添加刚体（Rigidbody)。 因为坦克大战是一款平面游戏，切记要倒入2D文件，如Box Collider 2D, Rigidbody 2D。 Rigidbody组件可以让一个物体受到物理影响。比如添加Rigidbody组建后，物体会立马对重力作出反应。如果物体上还添加了Col">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Unity入门第一天： 熟悉界面与物体移动">
-<meta property="og:url" content="http://example.com/2021/03/10/Unity%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:title" content="Unity入门第二天：移动，碰撞与渲染">
+<meta property="og:url" content="http://example.com/2021/03/14/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%8C%E5%A4%A9%EF%BC%9A%E7%A7%BB%E5%8A%A8%EF%BC%8C%E7%A2%B0%E6%92%9E%E4%B8%8E%E6%B8%B2%E6%9F%93/index.html">
 <meta property="og:site_name" content="YangOcean">
-<meta property="og:description" content="这是我学习Unity的第一天，是跟着Siki学院的坦克大战教程总结了一些经验">
+<meta property="og:description" content="添加碰撞体积为了实现坦克大战中地图设计，我们要在地形（墙，河流）上添加碰撞体积(Box Collider)，并要在坦克上添加刚体（Rigidbody)。 因为坦克大战是一款平面游戏，切记要倒入2D文件，如Box Collider 2D, Rigidbody 2D。 Rigidbody组件可以让一个物体受到物理影响。比如添加Rigidbody组建后，物体会立马对重力作出反应。如果物体上还添加了Col">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/images/Project_and_Hierarchy.png">
-<meta property="og:image" content="http://example.com/images/scene.png">
-<meta property="article:published_time" content="2021-03-10T23:18:01.000Z">
-<meta property="article:modified_time" content="2021-03-23T23:02:37.614Z">
+<meta property="og:image" content="http://example.com/images/Constraints.png">
+<meta property="og:image" content="http://example.com/images/xuanran.png">
+<meta property="og:image" content="http://example.com/images/Layers.png">
+<meta property="article:published_time" content="2021-03-13T23:50:23.000Z">
+<meta property="article:modified_time" content="2021-03-23T23:03:52.919Z">
 <meta property="article:author" content="Yangyang Cui">
 <meta property="article:tag" content="Unity">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/Project_and_Hierarchy.png">
+<meta name="twitter:image" content="http://example.com/images/Constraints.png">
 
 
-<link rel="canonical" href="http://example.com/2021/03/10/Unity%E5%85%A5%E9%97%A8/">
+<link rel="canonical" href="http://example.com/2021/03/14/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%8C%E5%A4%A9%EF%BC%9A%E7%A7%BB%E5%8A%A8%EF%BC%8C%E7%A2%B0%E6%92%9E%E4%B8%8E%E6%B8%B2%E6%9F%93/">
 
 
 <script class="page-configurations">
@@ -52,7 +53,7 @@
     lang   : 'en'
   };
 </script>
-<title>Unity入门第一天： 熟悉界面与物体移动 | YangOcean</title>
+<title>Unity入门第二天：移动，碰撞与渲染 | YangOcean</title>
   
 
 
@@ -152,7 +153,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%95%8C%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text">关于界面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%92%E8%89%B2%E7%A7%BB%E5%8A%A8%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">角色移动代码解析</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E7%A2%B0%E6%92%9E%E4%BD%93%E7%A7%AF"><span class="nav-number">1.</span> <span class="nav-text">添加碰撞体积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%90%E5%88%B6%E7%89%A9%E4%BD%93%E7%A7%BB%E5%8A%A8"><span class="nav-number">2.</span> <span class="nav-text">限制物体移动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2D%E5%9C%BA%E6%99%AF%E6%B8%B2%E6%9F%93"><span class="nav-number">3.</span> <span class="nav-text">2D场景渲染</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -209,7 +210,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/10/Unity%E5%85%A5%E9%97%A8/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/14/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%8C%E5%A4%A9%EF%BC%9A%E7%A7%BB%E5%8A%A8%EF%BC%8C%E7%A2%B0%E6%92%9E%E4%B8%8E%E6%B8%B2%E6%9F%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -222,7 +223,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Unity入门第一天： 熟悉界面与物体移动
+          Unity入门第二天：移动，碰撞与渲染
         </h1>
 
         <div class="post-meta-container">
@@ -233,14 +234,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2021-03-10 23:18:01" itemprop="dateCreated datePublished" datetime="2021-03-10T23:18:01+00:00">2021-03-10</time>
+      <time title="Created: 2021-03-14 07:50:23" itemprop="dateCreated datePublished" datetime="2021-03-14T07:50:23+08:00">2021-03-14</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-03-23 23:02:37" itemprop="dateModified" datetime="2021-03-23T23:02:37+00:00">2021-03-23</time>
+        <time title="Modified: 2021-03-24 07:03:52" itemprop="dateModified" datetime="2021-03-24T07:03:52+08:00">2021-03-24</time>
       </span>
 
   
@@ -253,75 +254,25 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <blockquote>
-<p>这是我学习Unity的第一天，是跟着Siki学院的坦克大战教程总结了一些经验</p>
-</blockquote>
+        <h2 id="添加碰撞体积"><a href="#添加碰撞体积" class="headerlink" title="添加碰撞体积"></a>添加碰撞体积</h2><p>为了实现坦克大战中地图设计，我们要在地形（墙，河流）上添加碰撞体积(<code>Box Collider</code>)，并要在坦克上添加刚体（<code>Rigidbody</code>)。</p>
+<p>因为坦克大战是一款平面游戏，切记要倒入2D文件，如<code>Box Collider 2D</code>, <code>Rigidbody 2D</code>。</p>
+<p><code>Rigidbody</code>组件可以让一个物体受到物理影响。比如添加<code>Rigidbody</code>组建后，物体会立马对重力作出反应。如果物体上还添加了<code>Collider</code>，物体在受到碰撞时也会移动。之所以在坦克身上添加刚体是因为玩家会一直操控坦克，所以刚体便不会休眠，而一直保持活跃状态。</p>
+<p>然而测试时我们发现坦克在我们没有控制的情况下会一直向下坠落，原因是初始设定中设置了重力的参数，将<code>Gravity Scale</code>设置为零就好了。</p>
 <a id="more"></a>
-<h2 id="关于界面"><a href="#关于界面" class="headerlink" title="关于界面"></a>关于界面</h2><ul>
-<li><code>project</code> 涉及了所有开发者所需要的美术模型（场景，道具，主体）， 制作好的动画可以打包放入一个命名为Animation文件夹里，动画控制器也可以放入一个命名为Animation Controller的文件夹里，场景角色的脚本设计可以放入Scripts里，Hierarchy中的场景可以放入Map文件夹里。<br><img src="/images/Project_and_Hierarchy.png"></li>
-<li>将project内的素材拖入到<code>Hierarchy</code>中，即代表这些素材都是可以在<code>scence</code>，即场景中使用的。通过调整xyz的值可以设置素材的大小<code>Scale X3 Y3 Z3</code>。<ul>
-<li>如果想要在多个素材中设置相同的（大小）值，可以复制粘贴第一个素材后，将需要更改的素材拖入<code>Sprite Renderer</code>的<code>Sprite</code>中。</li>
-<li>如果想要在<code>Hierarchy</code>里呈现<code>project</code>里多个素材组成的动画，<code>shift</code>多选素材，并拖入<code>Hierarchy</code>中，将其命名为动画的名称。</li>
-</ul>
+<hr>
+<h2 id="限制物体移动"><a href="#限制物体移动" class="headerlink" title="限制物体移动"></a>限制物体移动</h2><ul>
+<li>在第一天的学习中我们实现了坦克的移动，但在实际测试中我们发现坦克会因为碰撞到地形的边缘而使方向变得扭曲，并不是理想中的纯上下左右式。解决方法为点击<code>Rigidbody 2D</code> —&gt; <code>constraints</code>（限制条件) -&gt; <code>Freeze Rotation</code>将Z轴锁住。<br><img src="/images/Constraints.png"></li>
+<li>第二个问题是将坦克向墙壁开去时，坦克并不会在靠近墙壁处停止运动，而是进行抽插式的诡异抖动。我们将原来在<code>Update()</code>中控制坦克运动的代码装入<code>FixedUpdate()</code>中，抖动是因为触发器判定时间每个人设备不同，如果用了fixedupdate就让他进行均匀的判定，解决抖动。相对应地，也应该将<code>Time.deltaTime</code>改为<code>Time.fixedDeltaTime</code>。</li>
+<li>对于喜欢同时按两个方向键移动的玩家（我), 设置上下左右的优先级便可以限制玩家的操作。如当玩家同时按下上、右两个键时，若设定横向移动的优先级比纵向移动的更高，那玩家只能向右走。实现代码如下：<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//如果玩家在水平方向和垂直方向都有输入，则设置水平方向优先级最高</span></span><br><span class="line"><span class="comment">//如果水平方向有输入，就直接return不用去管垂直方向</span></span><br><span class="line">    <span class="keyword">if</span> (h != <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><code>Scene</code>是游戏中会出现素材的呈现，可以用鼠标自由拖拽所选的素材，右键移动整体镜头。</li>
-<li><blockquote>
-<p>当想要设置物体为1m而又不知道如何调整素材大小的时候, 在Hierarchy中右键 -&gt; 3D Object -&gt; Cube， 即可得到一个变长为1m * 1m * 1m的正方体。<br><img src="/images/scene.png"></p>
-</blockquote>
-</li>
-<li><code>Game</code> 显示了按下播放键 ▶️ 后会呈现的结果（动画，人物控制）。</li>
 </ul>
 <hr>
-<h2 id="角色移动代码解析"><a href="#角色移动代码解析" class="headerlink" title="角色移动代码解析"></a>角色移动代码解析</h2><pre><code>using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Player : MonoBehaviour
-&#123;   
-    public float moveSpeed = 3;//设定角色移动速度：3m
-    //Sprite Renderer用来在Scene中渲染显示出图像，缩写成sr
-    private SpriteRenderer sr; 
-    //上 右 下 左，不同方向的图片用不同序列[]表示
-    public Sprite[] tankSprite;
-
-    //Awake在脚本被实例化的时候就会被调用（不管脚本是不是enable的）
-    private void Awake()&#123;
-        sr = GetComponent&lt;SpriteRenderer&gt;();
-    &#125;
-
-    void Start()
-    &#123;
-    &#125;
-
-    // Update is called once per frame
-    void Update()
-    &#123;
-        //&quot;Horizontal&quot;不能拼错，否则会识别不出。
-        //识别键盘
-        float h = Input.GetAxisRaw(&quot;Horizontal&quot;);
-        //transform用来控制对象的位置,right是横向
-        //Time.delatTime代表完成上一帧所用的时间（以秒为单位）
-        //使用它可通过世界坐标对 GameObject 应用变换。这意味着 GameObject 的变换是通过世界空间而不是 GameObject 的本地空间改变的
-        transform.Translate(Vector3.right * h * moveSpeed *Time.deltaTime, Space.World);
-        //如果是左边h的值是-1，右边是1，可以判断什么时候坦克转向
-        if (h &lt; 0)&#123;
-            sr.sprite = tankSprite[3];
-        &#125;
-        else if (h &gt; 0)&#123;
-            sr.sprite = tankSprite[1];
-        &#125;
-        //v大于1的时候向上走，反之向下走
-        float v = Input.GetAxisRaw(&quot;Vertical&quot;);
-        transform.Translate(Vector3.up * v * moveSpeed * Time.deltaTime, Space.World);
-        if (v &lt; 0)&#123;
-            sr.sprite = tankSprite[2];
-        &#125;
-        else if (v &gt; 0)&#123;
-            sr.sprite = tankSprite[0];
-        &#125;
-    &#125;
-&#125;
-</code></pre>
+<h2 id="2D场景渲染"><a href="#2D场景渲染" class="headerlink" title="2D场景渲染"></a>2D场景渲染</h2><p>为实现坦克进入草丛后草丛应该在坦克上方，子弹飞过河流时子弹在河流的上方，我们要设置2D场景渲染的优先级：<br><img src="/images/xuanran.png"></p>
+<ul>
+<li>Sorting layer是大层级</li>
+<li>控制大层级下面渲染的顺序：Order in layer 层级越大，越后渲染，即会覆盖其他层级数字小的物体。<br><img src="/images/Layers.png"></li>
+</ul>
+<p>#明天更新子弹的发射和移动！（其实已经学到子弹的发射了，但方向设计欧拉角和四元数，觉得应该学清楚再写）</p>
 
     </div>
 
@@ -338,10 +289,13 @@ public class Player : MonoBehaviour
 
           <div class="post-nav">
             <div class="post-nav-item">
+                <a href="/2021/03/11/Unity%E5%85%A5%E9%97%A8/" rel="prev" title="Unity入门第一天： 熟悉界面与物体移动">
+                  <i class="fa fa-chevron-left"></i> Unity入门第一天： 熟悉界面与物体移动
+                </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/03/13/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%8C%E5%A4%A9%EF%BC%9A%E7%A7%BB%E5%8A%A8%EF%BC%8C%E7%A2%B0%E6%92%9E%E4%B8%8E%E6%B8%B2%E6%9F%93/" rel="next" title="Unity入门第二天：移动，碰撞与渲染">
-                  Unity入门第二天：移动，碰撞与渲染 <i class="fa fa-chevron-right"></i>
+                <a href="/2021/03/16/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%B8%89%E5%A4%A9%EF%BC%9A%E5%AD%90%E5%BC%B9%E5%8F%91%E5%B0%84%EF%BC%8C%E8%A7%A6%E5%8F%91%E5%99%A8%EF%BC%8C%E6%A0%87%E7%AD%BE%E4%B8%8E%E6%97%A0%E6%95%8C%E6%AD%BB%E4%BA%A1%E5%8A%A8%E7%94%BB/" rel="next" title="Unity入门第三天：子弹发射，触发器，标签与无敌死亡动画">
+                  Unity入门第三天：子弹发射，触发器，标签与无敌死亡动画 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>

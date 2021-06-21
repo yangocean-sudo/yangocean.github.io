@@ -30,8 +30,8 @@
 <meta property="og:site_name" content="YangOcean">
 <meta property="og:description" content="今天是第五天了，虽然只更新了一点游戏细节，但debug花了不少功夫 不知道为什么自己的浏览器听不了歌，手机上却可以。Chrome开无痕直接不显示，痴呆.jpg">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-03-23T22:30:42.000Z">
-<meta property="article:modified_time" content="2021-03-24T23:34:43.710Z">
+<meta property="article:published_time" content="2021-03-23T14:30:42.000Z">
+<meta property="article:modified_time" content="2021-06-21T01:50:32.096Z">
 <meta property="article:author" content="Yangyang Cui">
 <meta property="article:tag" content="Unity">
 <meta name="twitter:card" content="summary">
@@ -149,7 +149,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E5%9C%B0%E8%A2%AB%E5%87%BB%E4%B8%AD%E6%97%B6%E7%9A%84%E7%88%86%E7%82%B8%E5%8A%A8%E7%94%BB"><span class="nav-number">1.</span> <span class="nav-text">基地被击中时的爆炸动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%A9%E5%AE%B6%E4%B8%8E%E6%95%8C%E4%BA%BA%E7%9A%84%E7%94%9F%E6%88%90"><span class="nav-number">2.</span> <span class="nav-text">玩家与敌人的生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8A%E5%A4%A9%E9%81%87%E5%88%B0%E7%9A%84problem"><span class="nav-number">3.</span> <span class="nav-text">今天遇到的problem</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8A%E5%A4%A9%E9%81%87%E5%88%B0%E7%9A%84problem"><span class="nav-number">1.</span> <span class="nav-text">今天遇到的problem</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -230,14 +230,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2021-03-23 22:30:42" itemprop="dateCreated datePublished" datetime="2021-03-23T22:30:42+00:00">2021-03-23</time>
+      <time title="Created: 2021-03-23 22:30:42" itemprop="dateCreated datePublished" datetime="2021-03-23T22:30:42+08:00">2021-03-23</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-03-24 23:34:43" itemprop="dateModified" datetime="2021-03-24T23:34:43+00:00">2021-03-24</time>
+        <time title="Modified: 2021-06-21 09:50:32" itemprop="dateModified" datetime="2021-06-21T09:50:32+08:00">2021-06-21</time>
       </span>
 
   
@@ -250,16 +250,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=“330” height=“86” src="//music.163.com/outchain/player?type=2&id=1392191075&auto=1&height=66"></iframe>
-
-<p><del>今天是第五天了，虽然只更新了一点游戏细节，但debug花了不少功夫</del></p>
+        <p><del>今天是第五天了，虽然只更新了一点游戏细节，但debug花了不少功夫</del></p>
 <p><del>不知道为什么自己的浏览器听不了歌，手机上却可以。Chrome开无痕直接不显示，痴呆.jpg</del></p>
 <a id="more"></a>
-
-<h2 id="基地被击中时的爆炸动画"><a href="#基地被击中时的爆炸动画" class="headerlink" title="基地被击中时的爆炸动画"></a>基地被击中时的爆炸动画</h2><p>在昨天的学习中我们只改变了基地旗帜，但<del>艺术就是爆炸</del>，于是今天加上爆炸特效：</p>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=“330” height=“86” src="//music.163.com/outchain/player?type=2&id=1392191075&auto=1&height=66"></iframe>
+## 基地被击中时的爆炸动画
+在昨天的学习中我们只改变了基地旗帜，但~~艺术就是爆炸~~，于是今天加上爆炸特效：
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//爆炸动画(需要在Project界面加载该预制体)</span></span><br><span class="line"><span class="keyword">public</span> GameObject explosionPrefab;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Die</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    sr.sprite = BrokenSprite;</span><br><span class="line">    <span class="comment">//在昨天的基础上加上生成爆炸动画的场面：</span></span><br><span class="line">    Instantiate(explosionPrefab, transform.position, transform.rotation);</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="玩家与敌人的生成"><a href="#玩家与敌人的生成" class="headerlink" title="玩家与敌人的生成"></a>玩家与敌人的生成</h2><p>为了让游戏看起来更有沉浸感，在玩家与敌人出生前播放出生特效，过一秒钟后玩家/敌人才会生成。</p>
+---
+## 玩家与敌人的生成
+为了让游戏看起来更有沉浸感，在玩家与敌人出生前播放出生特效，过一秒钟后玩家/敌人才会生成。
+
 <p>首先创建两种敌人的预制体<code>SmallEnemy</code>和<code>BigEnemy</code>，并将玩家的脚本<code>player</code>复制到新脚本<code>enemy</code>中，更新脚本中的预制体（如转像图案，子弹，特效等）。</p>
 <p>对预制体<code>Born_0</code>（不知道为什么当时有后缀<code>_0</code>）创建新脚本<code>Born</code>：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Born</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//在project界面加载玩家的预制体</span></span><br><span class="line">    <span class="keyword">public</span> GameObject playerPrefab;</span><br><span class="line">    <span class="comment">//在project界面加载敌人的预制体（两个）</span></span><br><span class="line">    <span class="comment">//用列表来随机生成两种敌人的一种</span></span><br><span class="line">    <span class="keyword">public</span> GameObject[] enemyPrefabList;</span><br><span class="line">    <span class="comment">//在hierarchy界面判断Born是不是创建玩家的</span></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">bool</span> createPlayer;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Start is called before the first frame update</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">//延时调用（更有沉浸感）</span></span><br><span class="line">        Invoke(<span class="string">&quot;BornTank&quot;</span>, <span class="number">1f</span>);</span><br><span class="line">        <span class="comment">//延时销毁</span></span><br><span class="line">        Destroy(gameObject, <span class="number">1f</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">BornTank</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//如果创建的是玩家</span></span><br><span class="line">        <span class="keyword">if</span> (createPlayer)&#123;</span><br><span class="line">        <span class="comment">//生成玩家的预制体(Quaternion.identity就是指Quaternion(0,0,0,0)）</span></span><br><span class="line">        Instantiate(playerPrefab, transform.position, Quaternion.identity);&#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">//int生成随机数只包括第一个数(0)，不包括第二个数(2)：0或1</span></span><br><span class="line">        <span class="built_in">int</span> num = Random.Range(<span class="number">0</span>,<span class="number">2</span>);</span><br><span class="line">        Instantiate(enemyPrefabList[num], transform.position, Quaternion.identity);</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -283,12 +284,12 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/03/22/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E5%9B%9B%E5%A4%A9%EF%BC%9A%E5%AD%90%E5%BC%B9%E6%8E%A5%E8%A7%A6%E7%89%A9%E4%BD%93%E7%9A%84%E5%8F%8D%E5%BA%94I/" rel="prev" title="Unity入门第四天：子弹接触物体的反应I">
+                <a href="/2021/03/23/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E5%9B%9B%E5%A4%A9%EF%BC%9A%E5%AD%90%E5%BC%B9%E6%8E%A5%E8%A7%A6%E7%89%A9%E4%BD%93%E7%9A%84%E5%8F%8D%E5%BA%94I/" rel="prev" title="Unity入门第四天：子弹接触物体的反应I">
                   <i class="fa fa-chevron-left"></i> Unity入门第四天：子弹接触物体的反应I
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/03/24/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E5%85%AD%E5%A4%A9%EF%BC%9A%E6%95%8C%E4%BA%BAAI%EF%BC%8C%E5%9C%B0%E5%9B%BE%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90/" rel="next" title="Unity入门第六天：敌人AI，地图随机生成">
+                <a href="/2021/03/25/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E5%85%AD%E5%A4%A9%EF%BC%9A%E6%95%8C%E4%BA%BAAI%EF%BC%8C%E5%9C%B0%E5%9B%BE%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90/" rel="next" title="Unity入门第六天：敌人AI，地图随机生成">
                   Unity入门第六天：敌人AI，地图随机生成 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
