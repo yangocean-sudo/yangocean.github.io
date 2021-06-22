@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hans">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -21,27 +21,27 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
-<meta name="description" content="添加碰撞体积为了实现坦克大战中地图设计，我们要在地形（墙，河流）上添加碰撞体积(Box Collider)，并要在坦克上添加刚体（Rigidbody)。 因为坦克大战是一款平面游戏，切记要倒入2D文件，如Box Collider 2D, Rigidbody 2D。 Rigidbody组件可以让一个物体受到物理影响。比如添加Rigidbody组建后，物体会立马对重力作出反应。如果物体上还添加了Col">
+<meta name="description" content="本篇讲述了物体的碰撞体积，与地图优先级的渲染。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Unity入门第二天：移动，碰撞与渲染">
-<meta property="og:url" content="http://example.com/2021/03/14/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%8C%E5%A4%A9%EF%BC%9A%E7%A7%BB%E5%8A%A8%EF%BC%8C%E7%A2%B0%E6%92%9E%E4%B8%8E%E6%B8%B2%E6%9F%93/index.html">
+<meta property="og:url" content="http://example.com/2021/03/13/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%8C%E5%A4%A9%EF%BC%9A%E7%A7%BB%E5%8A%A8%EF%BC%8C%E7%A2%B0%E6%92%9E%E4%B8%8E%E6%B8%B2%E6%9F%93/index.html">
 <meta property="og:site_name" content="YangOcean">
-<meta property="og:description" content="添加碰撞体积为了实现坦克大战中地图设计，我们要在地形（墙，河流）上添加碰撞体积(Box Collider)，并要在坦克上添加刚体（Rigidbody)。 因为坦克大战是一款平面游戏，切记要倒入2D文件，如Box Collider 2D, Rigidbody 2D。 Rigidbody组件可以让一个物体受到物理影响。比如添加Rigidbody组建后，物体会立马对重力作出反应。如果物体上还添加了Col">
-<meta property="og:locale" content="en_US">
+<meta property="og:description" content="本篇讲述了物体的碰撞体积，与地图优先级的渲染。">
+<meta property="og:locale">
 <meta property="og:image" content="http://example.com/images/Constraints.png">
 <meta property="og:image" content="http://example.com/images/xuanran.png">
 <meta property="og:image" content="http://example.com/images/Layers.png">
-<meta property="article:published_time" content="2021-03-13T23:50:23.000Z">
-<meta property="article:modified_time" content="2021-03-23T23:03:52.919Z">
+<meta property="article:published_time" content="2021-03-13T15:50:23.000Z">
+<meta property="article:modified_time" content="2021-06-22T05:41:05.815Z">
 <meta property="article:author" content="Yangyang Cui">
 <meta property="article:tag" content="Unity">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/Constraints.png">
 
 
-<link rel="canonical" href="http://example.com/2021/03/14/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%8C%E5%A4%A9%EF%BC%9A%E7%A7%BB%E5%8A%A8%EF%BC%8C%E7%A2%B0%E6%92%9E%E4%B8%8E%E6%B8%B2%E6%9F%93/">
+<link rel="canonical" href="http://example.com/2021/03/13/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%8C%E5%A4%A9%EF%BC%9A%E7%A7%BB%E5%8A%A8%EF%BC%8C%E7%A2%B0%E6%92%9E%E4%B8%8E%E6%B8%B2%E6%9F%93/">
 
 
 <script class="page-configurations">
@@ -50,7 +50,7 @@
     sidebar: "",
     isHome : false,
     isPost : true,
-    lang   : 'en'
+    lang   : 'zh-Hans'
   };
 </script>
 <title>Unity入门第二天：移动，碰撞与渲染 | YangOcean</title>
@@ -153,14 +153,16 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E7%A2%B0%E6%92%9E%E4%BD%93%E7%A7%AF"><span class="nav-number">1.</span> <span class="nav-text">添加碰撞体积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%90%E5%88%B6%E7%89%A9%E4%BD%93%E7%A7%BB%E5%8A%A8"><span class="nav-number">2.</span> <span class="nav-text">限制物体移动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2D%E5%9C%BA%E6%99%AF%E6%B8%B2%E6%9F%93"><span class="nav-number">3.</span> <span class="nav-text">2D场景渲染</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E7%A2%B0%E6%92%9E%E4%BD%93%E7%A7%AF"><span class="nav-number">1.</span> <span class="nav-text">添加碰撞体积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%84%B6%E8%80%8C%E6%B5%8B%E8%AF%95%E6%97%B6%E6%88%91%E4%BB%AC%E5%8F%91%E7%8E%B0%E5%9D%A6%E5%85%8B%E5%9C%A8%E6%88%91%E4%BB%AC%E6%B2%A1%E6%9C%89%E6%8E%A7%E5%88%B6%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E4%BC%9A%E4%B8%80%E7%9B%B4%E5%90%91%E4%B8%8B%E5%9D%A0%E8%90%BD%EF%BC%8C%E5%8E%9F%E5%9B%A0%E6%98%AF%E5%88%9D%E5%A7%8B%E8%AE%BE%E5%AE%9A%E4%B8%AD%E8%AE%BE%E7%BD%AE%E4%BA%86%E9%87%8D%E5%8A%9B%E7%9A%84%E5%8F%82%E6%95%B0%EF%BC%8C%E5%B0%86Gravity-Scale%E8%AE%BE%E7%BD%AE%E4%B8%BA%E9%9B%B6%E5%B0%B1%E5%A5%BD%E4%BA%86%E3%80%82"><span class="nav-number">2.</span> <span class="nav-text">然而测试时我们发现坦克在我们没有控制的情况下会一直向下坠落，原因是初始设定中设置了重力的参数，将Gravity Scale设置为零就好了。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%90%E5%88%B6%E7%89%A9%E4%BD%93%E7%A7%BB%E5%8A%A8"><span class="nav-number">3.</span> <span class="nav-text">限制物体移动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2D%E5%9C%BA%E6%99%AF%E6%B8%B2%E6%9F%93"><span class="nav-number">4.</span> <span class="nav-text">2D场景渲染</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yangyang Cui"
+      src="/uploads/selfie2.jpg">
   <p class="site-author-name" itemprop="name">Yangyang Cui</p>
-  <div class="site-description" itemprop="description">Want to join Ubisoft</div>
+  <div class="site-description" itemprop="description">share everything I want to share</div>
 </div>
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
@@ -209,13 +211,13 @@
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/14/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%8C%E5%A4%A9%EF%BC%9A%E7%A7%BB%E5%8A%A8%EF%BC%8C%E7%A2%B0%E6%92%9E%E4%B8%8E%E6%B8%B2%E6%9F%93/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%8C%E5%A4%A9%EF%BC%9A%E7%A7%BB%E5%8A%A8%EF%BC%8C%E7%A2%B0%E6%92%9E%E4%B8%8E%E6%B8%B2%E6%9F%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/uploads/selfie2.jpg">
       <meta itemprop="name" content="Yangyang Cui">
-      <meta itemprop="description" content="Want to join Ubisoft">
+      <meta itemprop="description" content="share everything I want to share">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -234,14 +236,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2021-03-14 07:50:23" itemprop="dateCreated datePublished" datetime="2021-03-14T07:50:23+08:00">2021-03-14</time>
+      <time title="Created: 2021-03-13 23:50:23" itemprop="dateCreated datePublished" datetime="2021-03-13T23:50:23+08:00">2021-03-13</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-03-24 07:03:52" itemprop="dateModified" datetime="2021-03-24T07:03:52+08:00">2021-03-24</time>
+        <time title="Modified: 2021-06-22 13:41:05" itemprop="dateModified" datetime="2021-06-22T13:41:05+08:00">2021-06-22</time>
       </span>
 
   
@@ -254,13 +256,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="添加碰撞体积"><a href="#添加碰撞体积" class="headerlink" title="添加碰撞体积"></a>添加碰撞体积</h2><p>为了实现坦克大战中地图设计，我们要在地形（墙，河流）上添加碰撞体积(<code>Box Collider</code>)，并要在坦克上添加刚体（<code>Rigidbody</code>)。</p>
+        <p>本篇讲述了物体的碰撞体积，与地图优先级的渲染。</p>
+<a id="more"></a>
+<h2 id="添加碰撞体积"><a href="#添加碰撞体积" class="headerlink" title="添加碰撞体积"></a>添加碰撞体积</h2><p>为了实现坦克大战中地图设计，我们要在地形（墙，河流）上添加碰撞体积(<code>Box Collider</code>)，并要在坦克上添加刚体（<code>Rigidbody</code>)。</p>
 <p>因为坦克大战是一款平面游戏，切记要倒入2D文件，如<code>Box Collider 2D</code>, <code>Rigidbody 2D</code>。</p>
 <p><code>Rigidbody</code>组件可以让一个物体受到物理影响。比如添加<code>Rigidbody</code>组建后，物体会立马对重力作出反应。如果物体上还添加了<code>Collider</code>，物体在受到碰撞时也会移动。之所以在坦克身上添加刚体是因为玩家会一直操控坦克，所以刚体便不会休眠，而一直保持活跃状态。</p>
-<p>然而测试时我们发现坦克在我们没有控制的情况下会一直向下坠落，原因是初始设定中设置了重力的参数，将<code>Gravity Scale</code>设置为零就好了。</p>
-<a id="more"></a>
-<hr>
-<h2 id="限制物体移动"><a href="#限制物体移动" class="headerlink" title="限制物体移动"></a>限制物体移动</h2><ul>
+<h2 id="然而测试时我们发现坦克在我们没有控制的情况下会一直向下坠落，原因是初始设定中设置了重力的参数，将Gravity-Scale设置为零就好了。"><a href="#然而测试时我们发现坦克在我们没有控制的情况下会一直向下坠落，原因是初始设定中设置了重力的参数，将Gravity-Scale设置为零就好了。" class="headerlink" title="然而测试时我们发现坦克在我们没有控制的情况下会一直向下坠落，原因是初始设定中设置了重力的参数，将Gravity Scale设置为零就好了。"></a>然而测试时我们发现坦克在我们没有控制的情况下会一直向下坠落，原因是初始设定中设置了重力的参数，将<code>Gravity Scale</code>设置为零就好了。</h2><h2 id="限制物体移动"><a href="#限制物体移动" class="headerlink" title="限制物体移动"></a>限制物体移动</h2><ul>
 <li>在第一天的学习中我们实现了坦克的移动，但在实际测试中我们发现坦克会因为碰撞到地形的边缘而使方向变得扭曲，并不是理想中的纯上下左右式。解决方法为点击<code>Rigidbody 2D</code> —&gt; <code>constraints</code>（限制条件) -&gt; <code>Freeze Rotation</code>将Z轴锁住。<br><img src="/images/Constraints.png"></li>
 <li>第二个问题是将坦克向墙壁开去时，坦克并不会在靠近墙壁处停止运动，而是进行抽插式的诡异抖动。我们将原来在<code>Update()</code>中控制坦克运动的代码装入<code>FixedUpdate()</code>中，抖动是因为触发器判定时间每个人设备不同，如果用了fixedupdate就让他进行均匀的判定，解决抖动。相对应地，也应该将<code>Time.deltaTime</code>改为<code>Time.fixedDeltaTime</code>。</li>
 <li>对于喜欢同时按两个方向键移动的玩家（我), 设置上下左右的优先级便可以限制玩家的操作。如当玩家同时按下上、右两个键时，若设定横向移动的优先级比纵向移动的更高，那玩家只能向右走。实现代码如下：<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//如果玩家在水平方向和垂直方向都有输入，则设置水平方向优先级最高</span></span><br><span class="line"><span class="comment">//如果水平方向有输入，就直接return不用去管垂直方向</span></span><br><span class="line">    <span class="keyword">if</span> (h != <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
@@ -289,12 +290,12 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/03/11/Unity%E5%85%A5%E9%97%A8/" rel="prev" title="Unity入门第一天： 熟悉界面与物体移动">
+                <a href="/2021/03/10/Unity%E5%85%A5%E9%97%A8/" rel="prev" title="Unity入门第一天： 熟悉界面与物体移动">
                   <i class="fa fa-chevron-left"></i> Unity入门第一天： 熟悉界面与物体移动
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/03/16/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%B8%89%E5%A4%A9%EF%BC%9A%E5%AD%90%E5%BC%B9%E5%8F%91%E5%B0%84%EF%BC%8C%E8%A7%A6%E5%8F%91%E5%99%A8%EF%BC%8C%E6%A0%87%E7%AD%BE%E4%B8%8E%E6%97%A0%E6%95%8C%E6%AD%BB%E4%BA%A1%E5%8A%A8%E7%94%BB/" rel="next" title="Unity入门第三天：子弹发射，触发器，标签与无敌死亡动画">
+                <a href="/2021/03/15/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%B8%89%E5%A4%A9%EF%BC%9A%E5%AD%90%E5%BC%B9%E5%8F%91%E5%B0%84%EF%BC%8C%E8%A7%A6%E5%8F%91%E5%99%A8%EF%BC%8C%E6%A0%87%E7%AD%BE%E4%B8%8E%E6%97%A0%E6%95%8C%E6%AD%BB%E4%BA%A1%E5%8A%A8%E7%94%BB/" rel="next" title="Unity入门第三天：子弹发射，触发器，标签与无敌死亡动画">
                   Unity入门第三天：子弹发射，触发器，标签与无敌死亡动画 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
@@ -345,7 +346,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Yangyang Cui</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
   </div>
 
     </div>
@@ -353,7 +354,7 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 

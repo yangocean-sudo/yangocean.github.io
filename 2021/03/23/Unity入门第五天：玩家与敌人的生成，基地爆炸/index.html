@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hans">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -21,17 +21,17 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
-<meta name="description" content="今天是第五天了，虽然只更新了一点游戏细节，但debug花了不少功夫 不知道为什么自己的浏览器听不了歌，手机上却可以。Chrome开无痕直接不显示，痴呆.jpg">
+<meta name="description" content="本篇讲述了在游戏开始时的角色是如何生成的，以及基地爆炸动画的触发和设置">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Unity入门第五天：玩家与敌人的生成，基地爆炸动画">
 <meta property="og:url" content="http://example.com/2021/03/23/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%94%E5%A4%A9%EF%BC%9A%E7%8E%A9%E5%AE%B6%E4%B8%8E%E6%95%8C%E4%BA%BA%E7%9A%84%E7%94%9F%E6%88%90%EF%BC%8C%E5%9F%BA%E5%9C%B0%E7%88%86%E7%82%B8/index.html">
 <meta property="og:site_name" content="YangOcean">
-<meta property="og:description" content="今天是第五天了，虽然只更新了一点游戏细节，但debug花了不少功夫 不知道为什么自己的浏览器听不了歌，手机上却可以。Chrome开无痕直接不显示，痴呆.jpg">
-<meta property="og:locale" content="en_US">
+<meta property="og:description" content="本篇讲述了在游戏开始时的角色是如何生成的，以及基地爆炸动画的触发和设置">
+<meta property="og:locale">
 <meta property="article:published_time" content="2021-03-23T14:30:42.000Z">
-<meta property="article:modified_time" content="2021-06-21T01:50:32.096Z">
+<meta property="article:modified_time" content="2021-06-22T05:44:28.377Z">
 <meta property="article:author" content="Yangyang Cui">
 <meta property="article:tag" content="Unity">
 <meta name="twitter:card" content="summary">
@@ -46,7 +46,7 @@
     sidebar: "",
     isHome : false,
     isPost : true,
-    lang   : 'en'
+    lang   : 'zh-Hans'
   };
 </script>
 <title>Unity入门第五天：玩家与敌人的生成，基地爆炸动画 | YangOcean</title>
@@ -149,14 +149,16 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8A%E5%A4%A9%E9%81%87%E5%88%B0%E7%9A%84problem"><span class="nav-number">1.</span> <span class="nav-text">今天遇到的problem</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E7%9F%A5%E9%81%93%E4%B8%BA%E4%BB%80%E4%B9%88%E8%87%AA%E5%B7%B1%E7%9A%84%E6%B5%8F%E8%A7%88%E5%99%A8%E5%90%AC%E4%B8%8D%E4%BA%86%E6%AD%8C%EF%BC%8C%E6%89%8B%E6%9C%BA%E4%B8%8A%E5%8D%B4%E5%8F%AF%E4%BB%A5%E3%80%82Chrome%E5%BC%80%E6%97%A0%E7%97%95%E7%9B%B4%E6%8E%A5%E4%B8%8D%E6%98%BE%E7%A4%BA%EF%BC%8C%E7%97%B4%E5%91%86-jpg"><span class="nav-number">1.</span> <span class="nav-text">不知道为什么自己的浏览器听不了歌，手机上却可以。Chrome开无痕直接不显示，痴呆.jpg</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8A%E5%A4%A9%E9%81%87%E5%88%B0%E7%9A%84problem"><span class="nav-number">2.</span> <span class="nav-text">今天遇到的problem</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yangyang Cui"
+      src="/uploads/selfie2.jpg">
   <p class="site-author-name" itemprop="name">Yangyang Cui</p>
-  <div class="site-description" itemprop="description">Want to join Ubisoft</div>
+  <div class="site-description" itemprop="description">share everything I want to share</div>
 </div>
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
@@ -205,13 +207,13 @@
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/23/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%94%E5%A4%A9%EF%BC%9A%E7%8E%A9%E5%AE%B6%E4%B8%8E%E6%95%8C%E4%BA%BA%E7%9A%84%E7%94%9F%E6%88%90%EF%BC%8C%E5%9F%BA%E5%9C%B0%E7%88%86%E7%82%B8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/uploads/selfie2.jpg">
       <meta itemprop="name" content="Yangyang Cui">
-      <meta itemprop="description" content="Want to join Ubisoft">
+      <meta itemprop="description" content="share everything I want to share">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -237,7 +239,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-06-21 09:50:32" itemprop="dateModified" datetime="2021-06-21T09:50:32+08:00">2021-06-21</time>
+        <time title="Modified: 2021-06-22 13:44:28" itemprop="dateModified" datetime="2021-06-22T13:44:28+08:00">2021-06-22</time>
       </span>
 
   
@@ -250,9 +252,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><del>今天是第五天了，虽然只更新了一点游戏细节，但debug花了不少功夫</del></p>
-<p><del>不知道为什么自己的浏览器听不了歌，手机上却可以。Chrome开无痕直接不显示，痴呆.jpg</del></p>
+        <p>本篇讲述了在游戏开始时的角色是如何生成的，以及基地爆炸动画的触发和设置</p>
 <a id="more"></a>
+<p><del>今天是第五天了，虽然只更新了一点游戏细节，但debug花了不少功夫</del></p>
+<h2 id="不知道为什么自己的浏览器听不了歌，手机上却可以。Chrome开无痕直接不显示，痴呆-jpg"><a href="#不知道为什么自己的浏览器听不了歌，手机上却可以。Chrome开无痕直接不显示，痴呆-jpg" class="headerlink" title="不知道为什么自己的浏览器听不了歌，手机上却可以。Chrome开无痕直接不显示，痴呆.jpg"></a><del>不知道为什么自己的浏览器听不了歌，手机上却可以。Chrome开无痕直接不显示，痴呆.jpg</del></h2><p>06/22更新，Chrome已经可以听歌了</p>
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=“330” height=“86” src="//music.163.com/outchain/player?type=2&id=1392191075&auto=1&height=66"></iframe>
 ## 基地被击中时的爆炸动画
 在昨天的学习中我们只改变了基地旗帜，但~~艺术就是爆炸~~，于是今天加上爆炸特效：
@@ -284,12 +287,12 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/03/23/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E5%9B%9B%E5%A4%A9%EF%BC%9A%E5%AD%90%E5%BC%B9%E6%8E%A5%E8%A7%A6%E7%89%A9%E4%BD%93%E7%9A%84%E5%8F%8D%E5%BA%94I/" rel="prev" title="Unity入门第四天：子弹接触物体的反应I">
-                  <i class="fa fa-chevron-left"></i> Unity入门第四天：子弹接触物体的反应I
+                <a href="/2021/03/22/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E5%9B%9B%E5%A4%A9%EF%BC%9A%E5%AD%90%E5%BC%B9%E6%8E%A5%E8%A7%A6%E7%89%A9%E4%BD%93%E7%9A%84%E5%8F%8D%E5%BA%94I/" rel="prev" title="Unity入门第四天：子弹接触物体的反应">
+                  <i class="fa fa-chevron-left"></i> Unity入门第四天：子弹接触物体的反应
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/03/25/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E5%85%AD%E5%A4%A9%EF%BC%9A%E6%95%8C%E4%BA%BAAI%EF%BC%8C%E5%9C%B0%E5%9B%BE%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90/" rel="next" title="Unity入门第六天：敌人AI，地图随机生成">
+                <a href="/2021/03/24/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E5%85%AD%E5%A4%A9%EF%BC%9A%E6%95%8C%E4%BA%BAAI%EF%BC%8C%E5%9C%B0%E5%9B%BE%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90/" rel="next" title="Unity入门第六天：敌人AI，地图随机生成">
                   Unity入门第六天：敌人AI，地图随机生成 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
@@ -340,7 +343,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Yangyang Cui</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
   </div>
 
     </div>
@@ -348,7 +351,7 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
