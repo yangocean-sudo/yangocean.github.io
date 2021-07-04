@@ -23,24 +23,21 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
-<meta name="description" content="这是我学习Unity的第一天，是跟着Siki学院的坦克大战教程总结了一些经验。 这篇文章讲述了Unity界面和角色移动。">
+<meta name="description" content="在看《啊哈！算法》这本书，打算做一份读书笔记。 第一章是排序，讲述了桶排序，冒泡排序和快速排序三种方法。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Unity入门第一天： 熟悉界面与物体移动">
-<meta property="og:url" content="http://example.com/2021/03/10/Unity%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:title" content="算法：排序">
+<meta property="og:url" content="http://example.com/2021/07/04/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%8E%92%E5%BA%8F/index.html">
 <meta property="og:site_name" content="YangOcean">
-<meta property="og:description" content="这是我学习Unity的第一天，是跟着Siki学院的坦克大战教程总结了一些经验。 这篇文章讲述了Unity界面和角色移动。">
+<meta property="og:description" content="在看《啊哈！算法》这本书，打算做一份读书笔记。 第一章是排序，讲述了桶排序，冒泡排序和快速排序三种方法。">
 <meta property="og:locale">
-<meta property="og:image" content="http://example.com/images/Project_and_Hierarchy.png">
-<meta property="og:image" content="http://example.com/images/scene.png">
-<meta property="article:published_time" content="2021-03-10T15:18:01.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:35:12.919Z">
+<meta property="article:published_time" content="2021-07-04T05:06:30.000Z">
+<meta property="article:modified_time" content="2021-07-04T08:08:14.328Z">
 <meta property="article:author" content="Yangyang Cui">
-<meta property="article:tag" content="Unity">
+<meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/Project_and_Hierarchy.png">
 
 
-<link rel="canonical" href="http://example.com/2021/03/10/Unity%E5%85%A5%E9%97%A8/">
+<link rel="canonical" href="http://example.com/2021/07/04/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%8E%92%E5%BA%8F/">
 
 
 <script class="page-configurations">
@@ -52,7 +49,7 @@
     lang   : 'zh-Hans'
   };
 </script>
-<title>Unity入门第一天： 熟悉界面与物体移动 | YangOcean</title>
+<title>算法：排序 | YangOcean</title>
   
 
 
@@ -152,7 +149,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%95%8C%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text">关于界面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%92%E8%89%B2%E7%A7%BB%E5%8A%A8%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">角色移动代码解析</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A1%B6%E6%8E%92%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">桶排序</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -217,7 +214,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/10/Unity%E5%85%A5%E9%97%A8/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/04/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/selfie2.jpg">
@@ -230,7 +227,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Unity入门第一天： 熟悉界面与物体移动
+          算法：排序
         </h1>
 
         <div class="post-meta-container">
@@ -240,16 +237,10 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
+      
 
-      <time title="Created: 2021-03-10 23:18:01" itemprop="dateCreated datePublished" datetime="2021-03-10T23:18:01+08:00">2021-03-10</time>
+      <time title="Created: 2021-07-04 13:06:30 / Modified: 16:08:14" itemprop="dateCreated datePublished" datetime="2021-07-04T13:06:30+08:00">2021-07-04</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-06-22 13:35:12" itemprop="dateModified" datetime="2021-06-22T13:35:12+08:00">2021-06-22</time>
-      </span>
 
   
   
@@ -261,8 +252,8 @@
       <span class="post-meta-item-text">Changyan: </span>
     
     
-      <a title="changyan" href="/2021/03/10/Unity%E5%85%A5%E9%97%A8/#SOHUCS" itemprop="discussionUrl">
-        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2021/03/10/Unity入门/" itemprop="commentCount"></span>
+      <a title="changyan" href="/2021/07/04/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%8E%92%E5%BA%8F/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2021/07/04/算法：排序/" itemprop="commentCount"></span>
       </a>
     
   </span>
@@ -277,74 +268,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>这是我学习Unity的第一天，是跟着Siki学院的坦克大战教程总结了一些经验。</p>
-<p>这篇文章讲述了Unity界面和角色移动。</p>
+        <p>在看《啊哈！算法》这本书，打算做一份读书笔记。</p>
+<p>第一章是排序，讲述了桶排序，冒泡排序和快速排序三种方法。</p>
 <a id="more"></a>
-<h2 id="关于界面"><a href="#关于界面" class="headerlink" title="关于界面"></a>关于界面</h2><ul>
-<li><code>project</code> 涉及了所有开发者所需要的美术模型（场景，道具，主体）， 制作好的动画可以打包放入一个命名为Animation文件夹里，动画控制器也可以放入一个命名为Animation Controller的文件夹里，场景角色的脚本设计可以放入Scripts里，Hierarchy中的场景可以放入Map文件夹里。<br><img src="/images/Project_and_Hierarchy.png"></li>
-<li>将project内的素材拖入到<code>Hierarchy</code>中，即代表这些素材都是可以在<code>scence</code>，即场景中使用的。通过调整xyz的值可以设置素材的大小<code>Scale X3 Y3 Z3</code>。<ul>
-<li>如果想要在多个素材中设置相同的（大小）值，可以复制粘贴第一个素材后，将需要更改的素材拖入<code>Sprite Renderer</code>的<code>Sprite</code>中。</li>
-<li>如果想要在<code>Hierarchy</code>里呈现<code>project</code>里多个素材组成的动画，<code>shift</code>多选素材，并拖入<code>Hierarchy</code>中，将其命名为动画的名称。</li>
-</ul>
-</li>
-<li><code>Scene</code>是游戏中会出现素材的呈现，可以用鼠标自由拖拽所选的素材，右键移动整体镜头。</li>
-<li><blockquote>
-<p>当想要设置物体为1m而又不知道如何调整素材大小的时候, 在Hierarchy中右键 -&gt; 3D Object -&gt; Cube， 即可得到一个变长为1m * 1m * 1m的正方体。<br><img src="/images/scene.png"></p>
-</blockquote>
-</li>
-<li><code>Game</code> 显示了按下播放键 ▶️ 后会呈现的结果（动画，人物控制）。</li>
-</ul>
-<hr>
-<h2 id="角色移动代码解析"><a href="#角色移动代码解析" class="headerlink" title="角色移动代码解析"></a>角色移动代码解析</h2><pre><code>using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Player : MonoBehaviour
-&#123;   
-    public float moveSpeed = 3;//设定角色移动速度：3m
-    //Sprite Renderer用来在Scene中渲染显示出图像，缩写成sr
-    private SpriteRenderer sr; 
-    //上 右 下 左，不同方向的图片用不同序列[]表示
-    public Sprite[] tankSprite;
-
-    //Awake在脚本被实例化的时候就会被调用（不管脚本是不是enable的）
-    private void Awake()&#123;
-        sr = GetComponent&lt;SpriteRenderer&gt;();
-    &#125;
-
-    void Start()
-    &#123;
-    &#125;
-
-    // Update is called once per frame
-    void Update()
-    &#123;
-        //&quot;Horizontal&quot;不能拼错，否则会识别不出。
-        //识别键盘
-        float h = Input.GetAxisRaw(&quot;Horizontal&quot;);
-        //transform用来控制对象的位置,right是横向
-        //Time.delatTime代表完成上一帧所用的时间（以秒为单位）
-        //使用它可通过世界坐标对 GameObject 应用变换。这意味着 GameObject 的变换是通过世界空间而不是 GameObject 的本地空间改变的
-        transform.Translate(Vector3.right * h * moveSpeed *Time.deltaTime, Space.World);
-        //如果是左边h的值是-1，右边是1，可以判断什么时候坦克转向
-        if (h &lt; 0)&#123;
-            sr.sprite = tankSprite[3];
-        &#125;
-        else if (h &gt; 0)&#123;
-            sr.sprite = tankSprite[1];
-        &#125;
-        //v大于1的时候向上走，反之向下走
-        float v = Input.GetAxisRaw(&quot;Vertical&quot;);
-        transform.Translate(Vector3.up * v * moveSpeed * Time.deltaTime, Space.World);
-        if (v &lt; 0)&#123;
-            sr.sprite = tankSprite[2];
-        &#125;
-        else if (v &gt; 0)&#123;
-            sr.sprite = tankSprite[0];
-        &#125;
-    &#125;
-&#125;
-</code></pre>
+<h1 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h1><p>刚开始觉得方便，便用python复刻了下原书中C的代码 <del>不会C语言</del></p>
+<p>这个方法的原理就好比给一列数字排序时，这列数字中最大值<code>(n)</code>有多大，就设置<code>(n+1)</code>个桶（因为要包含<code>0</code>）。读入列表中的数字（如<code>a</code>），便将第<code>a</code>个桶上插上一面旗帜。最后遍历每一个桶，将有旗帜的桶显示出来就完成排序了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">flag = <span class="literal">True</span></span><br><span class="line">number_list = [] <span class="comment">#输入的数字列表</span></span><br><span class="line">book = [] <span class="comment">#桶</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#让用户输入数字，将数字添加到列表中，如果用户输入“done”，就结束输入</span></span><br><span class="line"><span class="keyword">while</span> flag:</span><br><span class="line">    number = <span class="built_in">input</span>(<span class="string">&quot;give me number to input:\n&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> number == <span class="string">&#x27;done&#x27;</span>:</span><br><span class="line">        flag = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    number_list.append(<span class="built_in">int</span>(number))</span><br><span class="line">    flag = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#桶的数量，加上1是因为要包含0</span></span><br><span class="line">length = <span class="built_in">int</span>(<span class="built_in">max</span>(number_list)) + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#将这些桶的旗帜数量统统设为0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(length):</span><br><span class="line">    book.append(i)</span><br><span class="line">    book[i] = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#将数字列表中的数作为旗帜插入对应的桶里</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> number_list:</span><br><span class="line">    book[<span class="built_in">int</span>(i)] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#从大到小将桶遍历，range(a,b,-1) a是遍历的起点(包含),b是终点(不包含)</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(book)-<span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">    <span class="comment">#如果旗帜数量大于等于1</span></span><br><span class="line">    <span class="keyword">if</span> book[i] &gt;= <span class="number">1</span>:</span><br><span class="line">        <span class="comment">#有几个旗帜就打印几次</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">int</span>(book[i])):</span><br><span class="line">            print(i)</span><br></pre></td></tr></table></figure>
+<p>如果输入为 (<del>为了省空间用空格代替回车键</del>)</p>
+<p><code>10 320 44 44 32 10 done</code></p>
+<p>那么输出为</p>
+<p><code>320 44 44 32 10 10</code><br>时间复杂度上，一共进行了<code>O(M+M+N+M+N)</code>次，也就是忽略掉coefficient 2和3，一共是<code>O(M+N)</code>次。这是一个非常快的排序算法，但缺点也是很明显的：如果我们只需要对比5个4位数的数字（如<code>1000,2000,4444,3333,9999</code>），我们依然要建立<code>10000</code>个桶，非常浪费空间！另外如果我们需要排序小数，如<code>1.12,2.333,2.33343</code>时，桶排序似乎就没有用了。</p>
+<p>这时我们引进另一个排序方法，冒泡排序。</p>
 
     </div>
 
@@ -354,18 +288,18 @@ public class Player : MonoBehaviour
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Unity/" rel="tag"># Unity</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
+                <a href="/2021/04/11/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%B8%83%E5%A4%A9%EF%BC%9A%E8%AE%A1%E6%97%B6%E5%99%A8-%E5%88%87%E6%8D%A2%E9%A1%B5%E9%9D%A2/" rel="prev" title="Unity入门第七天：计时器/切换页面">
+                  <i class="fa fa-chevron-left"></i> Unity入门第七天：计时器/切换页面
+                </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/03/13/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%8C%E5%A4%A9%EF%BC%9A%E7%A7%BB%E5%8A%A8%EF%BC%8C%E7%A2%B0%E6%92%9E%E4%B8%8E%E6%B8%B2%E6%9F%93/" rel="next" title="Unity入门第二天：移动，碰撞与渲染">
-                  Unity入门第二天：移动，碰撞与渲染 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
