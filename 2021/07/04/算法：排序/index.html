@@ -31,7 +31,7 @@
 <meta property="og:description" content="在看《啊哈！算法》这本书，打算做一份读书笔记。 第一章是排序，讲述了桶排序，冒泡排序和快速排序三种方法。">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-07-04T05:06:30.000Z">
-<meta property="article:modified_time" content="2021-07-04T08:08:14.328Z">
+<meta property="article:modified_time" content="2021-07-04T12:42:11.790Z">
 <meta property="article:author" content="Yangyang Cui">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
@@ -149,7 +149,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A1%B6%E6%8E%92%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">桶排序</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A1%B6%E6%8E%92%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">桶排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">冒泡排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="nav-number">3.</span> <span class="nav-text">快速排序</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -239,7 +239,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2021-07-04 13:06:30 / Modified: 16:08:14" itemprop="dateCreated datePublished" datetime="2021-07-04T13:06:30+08:00">2021-07-04</time>
+      <time title="Created: 2021-07-04 13:06:30 / Modified: 20:42:11" itemprop="dateCreated datePublished" datetime="2021-07-04T13:06:30+08:00">2021-07-04</time>
     </span>
 
   
@@ -279,7 +279,49 @@
 <p>那么输出为</p>
 <p><code>320 44 44 32 10 10</code><br>时间复杂度上，一共进行了<code>O(M+M+N+M+N)</code>次，也就是忽略掉coefficient 2和3，一共是<code>O(M+N)</code>次。这是一个非常快的排序算法，但缺点也是很明显的：如果我们只需要对比5个4位数的数字（如<code>1000,2000,4444,3333,9999</code>），我们依然要建立<code>10000</code>个桶，非常浪费空间！另外如果我们需要排序小数，如<code>1.12,2.333,2.33343</code>时，桶排序似乎就没有用了。</p>
 <p>这时我们引进另一个排序方法，冒泡排序。</p>
-
+<hr>
+<h1 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h1><p>冒泡排序的基本思想是：每次比较两个相邻的元素，如果它们的顺序错误就把它们交换过来</p>
+<p>举个例子：比如有五个数字：2, 4, 3, 9, 7</p>
+<p>如果想要从大到小排序，则首先对比第一个数字 <code>2</code></p>
+<p>因为<code>2</code>比<code>4</code>小，所以调换位置：</p>
+<p>4, <code>2</code>, 3, 9, 7 第一次遍历</p>
+<p>同理，接下来与3比较： </p>
+<p>4, 3, <code>2</code>, 9 ,7</p>
+<p>4, 3, 9, <code>2</code>, 7</p>
+<p>4, 3, 9, 7, <code>2</code> 遍历4次 </p>
+<p>因为<code>2</code>从开始一直交换到末尾，就像泡泡浮出水面一样，所以很形象地称之为冒泡排序</p>
+<p>接下来也是一样的道理：</p>
+<p><code>4</code>, 3, 9, 7, 2 第二次遍历</p>
+<p>4, <code>3</code>, 9, 7, 2</p>
+<p>4, 9, <code>3</code>, 7, 2</p>
+<p>4, 9, 7, <code>3</code>, 2 遍历3次 （2已经是最小的了）</p>
+<p><code>4</code>, 9, 7, 3, 2 第三次遍历</p>
+<p>9, <code>4</code>, 7, 3, 2</p>
+<p>9, 7, <code>4</code>, 3, 2 遍历2次</p>
+<p><code>9</code>, 7, 4, 3, 2 第四次遍历</p>
+<p>9, <code>7</code>, 4, 3, 2 遍历1次</p>
+<p>桶排序的一个问题是如果数字后面跟着名字，最后的输出只有数字，名字不会一起出现，而通过二维列表的冒泡排序可以解决这个问题</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#输入总列表</span></span><br><span class="line">total_list = []</span><br><span class="line"></span><br><span class="line"><span class="comment">#输入数字，输入名字，将数字与名字作为一个列表输入总的列表中</span></span><br><span class="line">flag = <span class="literal">True</span></span><br><span class="line"><span class="keyword">while</span> flag:</span><br><span class="line">    cache_list = []</span><br><span class="line">    number = <span class="built_in">input</span>(<span class="string">&quot;give me number to input:\n&quot;</span>)</span><br><span class="line">    cache_list.append(number)</span><br><span class="line">    name = <span class="built_in">input</span>(<span class="string">&quot;give me name to input:\n&quot;</span>)</span><br><span class="line">    cache_list.append(name)</span><br><span class="line">    total_list.append(cache_list)</span><br><span class="line">    check = <span class="built_in">input</span>(<span class="string">&quot;Done?&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> check == <span class="string">&#x27;yes&#x27;</span> <span class="keyword">or</span> check == <span class="string">&#x27;Yes&#x27;</span>:</span><br><span class="line">        flag = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        flag = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#有n个输入就遍历(n-1)次</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(total_list)-<span class="number">1</span>):</span><br><span class="line">    <span class="comment">#如上面演示的一样，已经排序好的就不必再比对了，节省空间</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(total_list)-<span class="number">1</span>-i):</span><br><span class="line">        <span class="comment">#如果a&lt;b，则替换ab</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">int</span>(total_list[j][<span class="number">0</span>]) &lt; <span class="built_in">int</span>(total_list[j+<span class="number">1</span>][<span class="number">0</span>]):</span><br><span class="line">            cache = total_list[j]</span><br><span class="line">            total_list[j] = total_list[j+<span class="number">1</span>]</span><br><span class="line">            total_list[j+<span class="number">1</span>] = cache</span><br><span class="line"></span><br><span class="line"><span class="comment">#依据数字从高到低打印匹配的名字</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(number_list)):</span><br><span class="line">    print(total_list[i][<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<p>因为冒泡排序是双重嵌套循环，所以时间复杂度是O(N<sup>2</sup>)。</p>
+<blockquote>
+<p>假如我们的计算机每秒钟可以运行10亿次，那么对1亿个数进行排序，桶排序只需要0.1秒，而冒泡排序则需要1千万秒，达到115天之久！</p>
+</blockquote>
+<hr>
+<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><p>假设我们对<code>9, 4, 3, 7, 2, 6, 5</code>这七个数排序</p>
+<p>先将最左边的9设置为基准数，然后从右往左找比9更小的数字，从左往右找比9更大的数字：</p>
+<p><code>9</code>, 4, 3, 7, 2, 6, <code>5</code> <em>从右往左 –&gt; 5就是比9小的数字</em></p>
+<p>9, 4, 3, 7, 2, 6, <code>5</code> <em>从左往右 –&gt; 9没有遇到比他更大的数字，而是遇到了5， 当两个数字相遇时，则这个数字与基准数互换</em></p>
+<p><code>5</code>, 4, 3, 7, <code>2</code>, 6, 9 <em>再实行一遍这个步骤 （5为基准数）从右往左 –&gt; 2比5小</em></p>
+<p>5, 4, 3, <code>7</code>, <code>2</code>, 6, 9 <em>从左往右 –&gt; 7比5大</em></p>
+<p>5, 4, 3, <code>2</code>, <code>7</code>, 6, 9 <em>互换 2， 7</em></p>
+<p><code>2</code>, 4, 3, <code>5</code>, 7, 6, 9 <em>从右往左 –&gt; 7 与 2重合， 与基准数5互换位置</em></p>
+<p>这样基准数5左边的都比5小，右边的都比5大，按这样的方法继续排序5的左边与右边：</p>
+<p><code>2</code>, 4, 3, 5, 6, <code>7</code>, 9</p>
+<p>2, <code>3</code>, 4, 5, 6, 7, 9 <em>这样就全部排序好了</em></p>
+<blockquote>
+<p>快速排序之所以比较快，是因为相比冒泡排序，每次交换是跳跃式的。每次排序的时候设置一个基准点，将小于等于基准点的书全部放到基准点的左边，将大于等于基准点的数全部放到基准点的右边。这样在每次交换的时候就不会像冒泡排序一样只能在相邻的数之间进行交换，交换的距离就大的多了。当然在最坏的情况下，仍可能是相邻的两个数进行了交换。因此快速排序的最差时间复杂度和冒泡排序是一样的，O(N<sup>2</sup>)，它的平均时间复杂度为O(NlogN)。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#输入数字列表</span></span><br><span class="line">number_list = []</span><br><span class="line"></span><br><span class="line"><span class="comment">#定义快速排序放大方法</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quicksort</span> (<span class="params">left, right</span>):</span></span><br><span class="line">    <span class="comment">#如果最左边大于最右边，说明已经操作完成，直接返回</span></span><br><span class="line">    <span class="keyword">if</span> left &gt; right:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    temp = <span class="built_in">int</span>(number_list[left])  <span class="comment">#列表中最左边的数（基准数）</span></span><br><span class="line">    i = left</span><br><span class="line">    j = right</span><br><span class="line">    <span class="keyword">while</span> i != j: <span class="comment">#如果i和j没有接触的话</span></span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">int</span>(number_list[j]) &gt;= temp <span class="keyword">and</span> i &lt; j: <span class="comment">#从列表最右边的数字开始寻找比基准数小的数字</span></span><br><span class="line">            j -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">int</span>(number_list[i]) &lt;= temp <span class="keyword">and</span> i &lt; j: <span class="comment">#从列表最左边的数字开始寻找比基准数大的数字</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> i &lt; j: <span class="comment">#如果找到的两个数字没有重叠，互换这两个数字</span></span><br><span class="line">            t = <span class="built_in">int</span>(number_list[i])</span><br><span class="line">            number_list[i] = number_list[j]</span><br><span class="line">            number_list[j] = t</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    number_list[left] = number_list[i] <span class="comment">#当最终两个数字接触后，基准数与接触的数字互换位置</span></span><br><span class="line">    number_list[i] = temp</span><br><span class="line">    quicksort (left, i-<span class="number">1</span>) <span class="comment">#对基准数左边进行排序</span></span><br><span class="line">    quicksort(i+<span class="number">1</span>, right) <span class="comment">#对基准数右边进行排序</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#用户输入数字，&#x27;done&#x27; 结束输入</span></span><br><span class="line">flag = <span class="literal">True</span></span><br><span class="line"><span class="keyword">while</span> flag:</span><br><span class="line">    number = <span class="built_in">input</span>(<span class="string">&quot;give me number to input:\n&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> number == <span class="string">&#x27;done&#x27;</span>:</span><br><span class="line">        flag = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    number_list.append(number)</span><br><span class="line">    flag = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#最左边的数是0，最右边的数是长度-1（因为包含0）</span></span><br><span class="line">quicksort(<span class="number">0</span>, <span class="built_in">len</span>(number_list)-<span class="number">1</span>)</span><br><span class="line">print(number_list)</span><br></pre></td></tr></table></figure>
     </div>
 
     
